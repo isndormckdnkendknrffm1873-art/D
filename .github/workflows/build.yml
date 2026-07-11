@@ -32,7 +32,12 @@ jobs:
           flutter create --project-name test_app --platforms android .
           mv lib/main_backup.dart lib/main.dart
 
-      # إضافة صلاحيات الإنترنت والموقع الجغرافي للأندرويد
+      # السحر الجديد: تحديث نسخة Kotlin تلقائياً لتتوافق مع مكتبة الـ GPS
+      - name: Fix Kotlin Version
+        run: |
+          sed -i "s/version '1.7.1'/version '1.9.24'/g" android/settings.gradle || true
+          sed -i "s/ext.kotlin_version = '1.7.1'/ext.kotlin_version = '1.9.24'/g" android/build.gradle || true
+
       - name: Add Permissions
         run: |
           sed -i '/<application/i \    <uses-permission android:name="android.permission.INTERNET" />' android/app/src/main/AndroidManifest.xml
