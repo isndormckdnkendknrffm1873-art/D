@@ -32,11 +32,10 @@ jobs:
           flutter create --project-name test_app --platforms android .
           mv lib/main_backup.dart lib/main.dart
 
-      # السحر الجديد: تحديث نسخة Kotlin تلقائياً لتتوافق مع مكتبة الـ GPS
-      - name: Fix Kotlin Version
+      # الهجوم الشامل: البحث عن النسخة القديمة أينما كانت وتحديثها بالقوة
+      - name: Force Upgrade Kotlin
         run: |
-          sed -i "s/version '1.7.1'/version '1.9.24'/g" android/settings.gradle || true
-          sed -i "s/ext.kotlin_version = '1.7.1'/ext.kotlin_version = '1.9.24'/g" android/build.gradle || true
+          find android -type f -name "*.gradle" -exec sed -i 's/1.7.1/1.9.24/g' {} +
 
       - name: Add Permissions
         run: |
