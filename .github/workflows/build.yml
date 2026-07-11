@@ -32,10 +32,10 @@ jobs:
           flutter create --project-name test_app --platforms android .
           mv lib/main_backup.dart lib/main.dart
 
-      # الهجوم الشامل: البحث عن النسخة القديمة أينما كانت وتحديثها بالقوة
+      # الإصلاح الدقيق: استبدال الرقم 1.7.10 بالكامل لتجنب خطأ الصفر
       - name: Force Upgrade Kotlin
         run: |
-          find android -type f -name "*.gradle" -exec sed -i 's/1.7.1/1.9.24/g' {} +
+          find android -type f -name "*.gradle" -exec sed -i 's/1.7.10/1.9.24/g' {} +
 
       - name: Add Permissions
         run: |
