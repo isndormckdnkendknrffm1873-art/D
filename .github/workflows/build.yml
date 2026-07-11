@@ -25,11 +25,13 @@ jobs:
           flutter-version: '3.19.0'
           channel: 'stable'
 
-      # إجبار فلاتر على استخدام اسم نظامي بأحرف صغيرة وتجاهل اسم المجلد "D"
+      # إخفاء كودنا، ثم إنشاء ملفات الأندرويد، ثم إرجاع كودنا ليمسح العداد!
       - name: Generate Android Files
         run: |
           flutter config --no-analytics
+          mv lib/main.dart lib/main_backup.dart
           flutter create --project-name test_app --platforms android .
+          mv lib/main_backup.dart lib/main.dart
 
       - name: Add Internet Permission
         run: sed -i '/<application/i \    <uses-permission android:name="android.permission.INTERNET" />' android/app/src/main/AndroidManifest.xml
