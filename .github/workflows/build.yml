@@ -25,11 +25,12 @@ jobs:
           flutter-version: '3.19.0'
           channel: 'stable'
 
-      # هذا السطر سيقوم بتوليد مجلدات الأندرويد الصحيحة والحديثة أوتوماتيكياً
+      # إجبار فلاتر على استخدام اسم نظامي بأحرف صغيرة وتجاهل اسم المجلد "D"
       - name: Generate Android Files
-        run: flutter create --platforms android .
+        run: |
+          flutter config --no-analytics
+          flutter create --project-name test_app --platforms android .
 
-      # هذا السطر يضيف صلاحية الإنترنت للتطبيق تلقائياً بعد إنشائه
       - name: Add Internet Permission
         run: sed -i '/<application/i \    <uses-permission android:name="android.permission.INTERNET" />' android/app/src/main/AndroidManifest.xml
 
